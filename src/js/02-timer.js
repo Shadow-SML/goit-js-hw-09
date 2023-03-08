@@ -14,37 +14,20 @@ const elements = {
 setDisabledAttribute(elements.startBtn);
 elements.startBtn.addEventListener('click', start);
 
-// const options = {
-//   enableTime: true,
-//   time_24hr: true,
-//   defaultDate: new Date(),
-//   minuteIncrement: 1,
-//   onClose() {
-//     const timeDifference = calculateTimeDifference();
-//     if (timeDifference < 0) {
-//       Notify.failure('Please choose a date in the future');
-//       return;
-//     }
-//     Notify.success('Valid date chosen, press "Start"');
-//     removeDisabledAttribute(elements.startBtn);
-//   },
-// };
-
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  onClose(selectedDates, dateStr) {
-    const selectedTime = selectedDates[0].getTime();
-    const currentTime = new Date().getTime();
-    if (selectedTime < currentTime) {
+  onClose() {
+    const timeDifference = calculateTimeDifference();
+    if (timeDifference < 0) {
       Notify.failure('Please choose a date in the future');
       setDisabledAttribute(elements.startBtn);
-    } else {
-      Notify.success('Valid date chosen, press "Start"');
-      removeDisabledAttribute(elements.startBtn);
+      return;
     }
+    Notify.success('Valid date chosen, press "Start"');
+    removeDisabledAttribute(elements.startBtn);
   },
 };
 
