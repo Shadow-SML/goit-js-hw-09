@@ -45,7 +45,7 @@ function start() {
 
 function calculateTimeDifference() {
   const selectedTime = new Date(elements.inputDate.value).getTime();
-  const currentTime = new Date().getTime();
+  const currentTime = Date.now();
   return selectedTime - currentTime;
 }
 
@@ -70,10 +70,10 @@ function pad(value) {
 }
 
 function updateClockFace({ days, hours, minutes, seconds }) {
-  elements.days.textContent = days;
-  elements.hours.textContent = hours;
-  elements.minutes.textContent = minutes;
-  elements.seconds.textContent = seconds;
+  elements.days.textContent = pad(days);
+  elements.hours.textContent = pad(hours);
+  elements.minutes.textContent = pad(minutes);
+  elements.seconds.textContent = pad(seconds);
 }
 
 function setDisabledAttribute(element) {
