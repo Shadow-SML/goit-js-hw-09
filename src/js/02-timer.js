@@ -30,6 +30,24 @@ const options = {
   },
 };
 
+// const options = {
+//   enableTime: true,
+//   time_24hr: true,
+//   defaultDate: new Date(),
+//   minuteIncrement: 1,
+//   onClose(selectedDates, dateStr) {
+//     const selectedTime = selectedDates[0].getTime();
+//     const currentTime = new Date().getTime();
+//     if (selectedTime < currentTime) {
+//       Notify.failure('Please choose a date in the future');
+//       setDisabledAttribute(elements.startBtn);
+//     } else {
+//       Notify.success('Valid date chosen, press "Start"');
+//       removeDisabledAttribute(elements.startBtn);
+//     }
+//   },
+// };
+
 flatpickr(elements.inputDate, options);
 
 function start() {
