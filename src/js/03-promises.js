@@ -14,14 +14,6 @@ function createPromise(position, delay) {
   });
 }
 
-function handleSuccess(position, delay) {
-  Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-}
-
-function handleFailure(position, delay) {
-  Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-}
-
 const form = document.querySelector('.form');
 
 form.addEventListener('submit', event => {
@@ -34,18 +26,20 @@ form.addEventListener('submit', event => {
     return;
   }
 
-  const promises = Array.from({ length: amount }, (_, i) =>
-    createPromise(i + 1, delay + i * step)
-  );
+  for (let i = 0; i < amount; i += 1) {
+    const position = i;
+    const promiseDelay = delay + i * step;
 
-  Promise.allSettled(promises).then(results => {
-    results.forEach(({ status, value }, i) => {
-      const { position, delay } = value;
-      if (status === 'fulfilled') {
-        handleSuccess(position, delay);
-      } else {
-        handleFailure(position, delay);
-      }
-    });
-  });
+    createPromise(position, promiseDelay)
+      .then(({ position, delay }) => {
+        Notiflix.Notify.success(
+          `✅ Fulfilled promise ${position} in ${delay}ms`
+        );
+      })
+      .catch(({ position, delay }) => {
+        Notiflix.Notify.failure(
+          `❌ Rejected promise ${position} in ${delay}ms`
+        );
+      });
+  }
 });
